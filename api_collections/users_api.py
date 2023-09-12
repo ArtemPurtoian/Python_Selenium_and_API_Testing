@@ -1,4 +1,4 @@
-from tests.conftest import allure_auto_step
+from utilities.allure_decorator import allure_auto_step
 from utilities.config_reader import ReadConfig
 from utilities.api.base_api import BaseAPI
 
