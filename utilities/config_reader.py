@@ -6,7 +6,7 @@ import sys
 relative_path = "./configurations/app_config.ini"
 abs_path = os.path.abspath(relative_path)
 config = configparser.RawConfigParser()
-config.read(relative_path)
+config.read(abs_path)
 
 
 class ReadConfig:
