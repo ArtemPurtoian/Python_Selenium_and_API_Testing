@@ -1,4 +1,4 @@
-from tests.conftest import allure_auto_step
+from utilities.allure_decorator import allure_auto_step
 from selenium.webdriver.common.by import By
 from utilities.web_ui.base_page import BasePage
 
@@ -54,7 +54,7 @@ class UserPage(BasePage):
         self.click(self.__done_button_element)
         return self
 
-    def start_saving_is_displayed(self):
+    def is_displayed_start_saving(self):
         return self.is_displayed(self.__start_saving_element)
 
     def click_edit_settings_button(self):
@@ -79,7 +79,7 @@ class UserPage(BasePage):
         self.click(self.__add_element_from_saved)
         return self
 
-    def image_is_displayed(self):
+    def is_displayed_image(self):
         return self.is_displayed(self.__image_displayed_element)
 
     def delete_collection(self):
@@ -87,7 +87,7 @@ class UserPage(BasePage):
         self.click(self.__confirm_delete_coll_button)
         return self
 
-    def collection_is_deleted(self):
+    def is_not_displayed_collection(self):
         return self.is_not_displayed(self.__deleted_collection_element)
 
     def click_edit_profile_button(self):
@@ -111,5 +111,5 @@ class UserPage(BasePage):
         self.click(self.__submit_button_element)
         return self
 
-    def profile_saved_popup_is_displayed(self):
+    def is_displayed_profile_saved_popup(self):
         return self.is_displayed(self.__profile_saved_popup_element)

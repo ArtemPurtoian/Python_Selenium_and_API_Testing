@@ -1,4 +1,4 @@
-from tests.conftest import allure_auto_step
+from utilities.allure_decorator import allure_auto_step
 from utilities.config_reader import ReadConfig
 from selenium.webdriver.common.by import By
 from utilities.web_ui.base_page import BasePage
@@ -63,22 +63,22 @@ class MessagePage(BasePage):
         self.click(self.__send_button_element)
         return self
 
-    def sent_message_is_displayed(self):
+    def is_displayed_sent_message(self):
         return self.is_displayed(self.__sent_message_element)
 
-    def sent_time_is_displayed(self):
+    def is_displayed_sent_time(self):
         return self.is_displayed(self.__sent_time_element)
 
     def click_requests_button(self):
         self.click(self.__requests_button_element)
         return self
 
-    def message_requests_is_displayed(self):
+    def is_displayed_message_requests(self):
         return self.is_displayed(self.__message_requests_element)
 
     def click_hidden_requests_button(self):
         self.click(self.__hidden_requests_button_element)
         return self
 
-    def hidden_requests_is_displayed(self):
+    def is_displayed_hidden_requests(self):
         return self.is_displayed(self.__hidden_requests_element)

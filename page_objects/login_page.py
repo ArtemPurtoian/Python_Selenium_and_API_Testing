@@ -1,7 +1,7 @@
-from tests.conftest import allure_auto_step
-from page_objects.home_page import HomePage
-from utilities.web_ui.base_page import BasePage
+from utilities.allure_decorator import allure_auto_step
 from selenium.webdriver.common.by import By
+from utilities.web_ui.base_page import BasePage
+from page_objects.home_page import HomePage
 
 
 @allure_auto_step
@@ -52,5 +52,5 @@ class LoginPage(BasePage):
         self.click(self.__japanese_language_element)
         return self
 
-    def language_is_displayed(self):
+    def is_displayed_language(self):
         return self.is_displayed(self.__japanese_language_element)

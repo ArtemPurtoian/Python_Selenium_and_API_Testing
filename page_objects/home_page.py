@@ -1,8 +1,9 @@
-from tests.conftest import allure_auto_step
+from page_objects.user_page import UserPage
+from utilities.allure_decorator import allure_auto_step
 from utilities.config_reader import ReadConfig
 from selenium.webdriver.common.by import By
 from utilities.web_ui.base_page import BasePage
-from page_objects.search_panel import SearchPanel
+from page_objects.search_page import SearchPage
 
 
 @allure_auto_step
@@ -40,7 +41,7 @@ class HomePage(BasePage):
     __dark_mode = (By.XPATH, "//html[@class='_9dls js-focus-visible _aa4d']")
     __light_mode = (By.XPATH, "//html[@class='_9dls js-focus-visible _aa4c']")
     __search_button_element = (By.XPATH, "//span[@class and text()='Search']")
-    __search_panel_element = (By.XPATH, "//div[@class='_aaw6']")
+    __search_page_element = (By.XPATH, "//div[@class='_aaw6']")
 
     def click_more_button(self):
         self.click(self.__more_button_element)
@@ -49,6 +50,9 @@ class HomePage(BasePage):
     def click_logout_button(self):
         self.click(self.__logout_button_element)
         return self
+
+    def get_current_url(self):
+        return self._driver.current_url
 
     def click_notification_not_now_button(self):
         self.click(self.__notification_not_now_button_element)
@@ -62,12 +66,16 @@ class HomePage(BasePage):
         self.click(self.__save_info_not_now_button_element)
         return self
 
-    def last_suggested_page_is_displayed(self):
+    def is_displayed_last_suggested_page(self):
         return self.is_displayed(self.__last_suggested_element)
 
     def click_user_label_panel_button(self):
         self.click(self.__user_label_panel_element)
         return self
+
+    def open_user_profile(self):
+        self.click(self.__user_label_panel_element)
+        return UserPage(self._driver)
 
     def click_user_label_header_button(self):
         self.click(self.__user_label_header_element)
@@ -77,7 +85,7 @@ class HomePage(BasePage):
         self.click(self.__home_button_element)
         return self
 
-    def loading_spinner_is_displayed(self):
+    def is_displayed_loading_spinner(self):
         return self.is_displayed(self.__loading_spinner_element)
 
     def click_switch_appearance_button(self):
@@ -92,15 +100,15 @@ class HomePage(BasePage):
         self.click(self.__appearance_back_button)
         return self
 
-    def light_mode_is_displayed(self):
+    def is_displayed_light_mode(self):
         return self.is_displayed(self.__light_mode)
 
-    def dark_mode_is_displayed(self):
+    def is_displayed_dark_mode(self):
         return self.is_displayed(self.__dark_mode)
 
     def click_search_button(self):
         self.click(self.__search_button_element)
-        return SearchPanel(self._driver)
+        return SearchPage(self._driver)
 
-    def search_panel_is_displayed(self):
-        return self.is_displayed(self.__search_panel_element)
+    def is_displayed_search_page(self):
+        return self.is_displayed(self.__search_page_element)

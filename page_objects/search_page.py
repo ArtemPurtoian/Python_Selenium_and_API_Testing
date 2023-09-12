@@ -1,14 +1,15 @@
-from tests.conftest import allure_auto_step
+from utilities.allure_decorator import allure_auto_step
 from utilities.config_reader import ReadConfig
 from selenium.webdriver.common.by import By
 from utilities.web_ui.base_page import BasePage
 
 
 @allure_auto_step
-class SearchPanel(BasePage):
+class SearchPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    __search_page_element = (By.XPATH, "//div[@class='_aaw6']")
     __search_button_element = (By.XPATH, "//span[@class and text()='Search']")
     __search_button_small_element = \
         (By.XPATH, "//div[@class='x9f619 xxk0z11 xii2z7h x11xpdln x19c4wfv xvy4d1p']")
@@ -36,6 +37,9 @@ class SearchPanel(BasePage):
                    "x5pf9jr xo71vjh xxbr6pl xbbxn1n xwib8y2 x1y1aw1k x1uhb9sk "
                    "x1plvlek xryxfnj x1c4vz4f x2lah0s xdt5ytf xqjyukv x1qjc9v5 "
                    "x1oa3qoh x1nhvcw1']")
+
+    def is_displayed_search_page(self):
+        return self.is_displayed(self.__search_page_element)
 
     def click_search_button(self):
         self.click(self.__search_button_element)
@@ -65,10 +69,10 @@ class SearchPanel(BasePage):
         self.click(self.__unfollow_button_element)
         return self
 
-    def follow_button_is_displayed(self):
+    def is_displayed_follow_button(self):
         return self.is_displayed(self.__follow_button_element)
 
-    def desired_page_is_displayed(self):
+    def is_displayed_desired_page(self):
         return self.is_displayed(self.__desired_page_title_element)
 
     def click_small_home_button(self):
@@ -87,5 +91,5 @@ class SearchPanel(BasePage):
         self.click(self.__clear_all_confirm_element)
         return self
 
-    def recently_searched_element_is_not_displayed(self):
+    def is_not_displayed_recently_searched_element(self):
         return self.is_not_displayed(self.__recently_searched_element)
