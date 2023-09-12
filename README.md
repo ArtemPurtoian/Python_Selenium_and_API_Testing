@@ -5,9 +5,11 @@
   > pip install -r requirements.txt
 # Executing tests
 * To run a specific test in a module:
-  > pytest -k "test_name" test_module.py
+  > pytest -k "test_name" tests/test_module.py
+* Or
+  > pytest tests/test_module.py::test_name
 * To run a specific module:
-  > pytest -k test_module.py
+  > pytest tests/test_module.py
 * To run all tests
   > pytest
 # Reporting
