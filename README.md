@@ -12,6 +12,8 @@
   > pytest tests/test_module.py
 * To run all tests
   > pytest
+* To run tests with a specific marker:
+  > pytest -m "regression"
 # Reporting
 * Add the following after pytest command to generate an allure report:
   > --alluredir=./allure_report
