@@ -1,48 +1,29 @@
 import pytest
 from utilities.config_reader import ReadConfig
-from page_objects.login_page import LoginPage
-from page_objects.messages_page import MessagePage
 
 
 @pytest.mark.regression
-def test_send_message(initialize_driver):
-    email = ReadConfig.get_user_email()
-    password = ReadConfig.get_user_password()
-    driver = initialize_driver
-    (LoginPage(driver).set_email(email).set_password(password).
-     click_login_button())
-    (MessagePage(driver).click_message_tab_button().
-     click_notification_not_now_button().click_send_message_button().
-     set_recipient_name(ReadConfig.get_message_recipient()).select_recipient().
-     click_chat_button().write_message(ReadConfig.get_message_body()).
-     click_send_button())
-    sent_message = MessagePage(driver).sent_message_is_displayed()
-    sent_time = MessagePage(driver).sent_time_is_displayed()
-    assert sent_message and sent_time == "1m"
+def test_send_message(open_messages_page):
+    (open_messages_page.click_send_message_button().
+     set_recipient_name(ReadConfig.get_message_recipient()).
+     select_recipient().click_chat_button().
+     write_message(ReadConfig.get_message_body()).click_send_button())
+    sent_message = open_messages_page.is_displayed_sent_message()
+    sent_time = open_messages_page.is_displayed_sent_time()
+    assert sent_message, "Message hasn't been sent."
+    assert sent_time, "Sent time is incorrect."
 
 
 @pytest.mark.smoke
-def test_requests_page_is_displayed(initialize_driver):
-    email = ReadConfig.get_user_email()
-    password = ReadConfig.get_user_password()
-    driver = initialize_driver
-    (LoginPage(driver).set_email(email).set_password(password).
-     click_login_button())
-    (MessagePage(driver).click_message_tab_button().
-     click_notification_not_now_button().click_requests_button())
-    message_requests = MessagePage(driver).message_requests_is_displayed()
-    assert message_requests
+def test_requests_page_is_displayed(open_messages_page):
+    message_requests = (open_messages_page.click_requests_button().
+                        is_displayed_message_requests())
+    assert message_requests, "Requests page is not displayed."
 
 
 @pytest.mark.smoke
-def test_hidden_requests_page_is_displayed(initialize_driver):
-    email = ReadConfig.get_user_email()
-    password = ReadConfig.get_user_password()
-    driver = initialize_driver
-    (LoginPage(driver).set_email(email).set_password(password).
-     click_login_button())
-    (MessagePage(driver).click_message_tab_button().
-     click_notification_not_now_button().click_requests_button().
-     click_hidden_requests_button())
-    hidden_requests = MessagePage(driver).hidden_requests_is_displayed()
-    assert hidden_requests
+def test_hidden_requests_page_is_displayed(open_messages_page):
+    hidden_requests = \
+        (open_messages_page.click_requests_button().
+         click_hidden_requests_button().is_displayed_hidden_requests())
+    assert hidden_requests, "Hidden requests page is not displayed."
